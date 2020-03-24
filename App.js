@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Button, View, Text, Icon, TextInput, ActivityIndicator, SafeAreaView, SectionList, ImageBackground } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import Logo from './assets/man.jpeg'
+import axios from "axios"
 
 //data
 const Data = [
@@ -49,10 +50,25 @@ const ExploreScreen = () => {
 }
 
 const SettingScreen = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      try {
+        const response = await axios.get('https://api.kawalcorona.com/indonesia');
+        setData(response.data);
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    fetchdata()
+  }, [])
   return (
     <View style={styles.container}>
-      <Text> This is my Setting screen </Text>
-    </View>
+        {data.map(item => (
+          <Text>Data Covid 19 di {item.name}, Positif {item.positif}, sembuh {item.sembuh}, meninggal {item.meninggal}</Text>
+      ))}
+      </View>
   );
 }
 

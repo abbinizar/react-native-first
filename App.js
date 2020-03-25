@@ -65,10 +65,12 @@ const SettingScreen = () => {
   }, [])
   return (
     <View style={styles.container}>
+      <View style={styles.card}>
         {data.map(item => (
           <Text>Data Covid 19 di {item.name}, Positif {item.positif}, sembuh {item.sembuh}, meninggal {item.meninggal}</Text>
-      ))}
+        ))}
       </View>
+    </View>
   );
 }
 
@@ -147,4 +149,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
   },
+  card : {
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    borderColor: '#000',
+    borderWidth: 1,
+    padding: 10,
+    width: 120
+  }
 });
